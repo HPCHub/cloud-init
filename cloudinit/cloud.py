@@ -100,3 +100,6 @@ class Cloud(object):
 
     def get_ipath(self, name=None):
         return self.paths.get_ipath(name)
+
+    def get_admin_pass(self):
+        return self.datasource.get_admin_pass()

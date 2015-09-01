@@ -161,6 +161,16 @@ class DataSource(object):
             return "iid-datasource"
         return str(self.metadata['instance-id'])
 
+    def get_admin_pass(self):
+        if not self.metadata:
+            return None
+
+        meta = self.metadata.get('meta', None)
+        if not meta or 'admin_pass' not in meta:
+            return None
+
+        return str(meta['admin_pass'])
+
     def get_hostname(self, fqdn=False, resolve_ip=False):
         defdomain = "localdomain"
         defhost = "localhost"
