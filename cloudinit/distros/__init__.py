@@ -319,6 +319,7 @@ class Distro(object):
             "expiredate": '--expiredate',
             "inactive": '--inactive',
             "selinux_user": '--selinux-user',
+            "uid": '--uid',
         }
 
         adduser_flags = {
@@ -332,14 +333,14 @@ class Distro(object):
         # Check the values and create the command
         for key, val in kwargs.iteritems():
 
-            if key in adduser_opts and val and isinstance(val, str):
-                adduser_cmd.extend([adduser_opts[key], val])
+            if key in adduser_opts and val:
+                adduser_cmd.extend([adduser_opts[key], str(val)])
 
                 # Redact certain fields from the logs
                 if key in redact_opts:
                     log_adduser_cmd.extend([adduser_opts[key], 'REDACTED'])
                 else:
-                    log_adduser_cmd.extend([adduser_opts[key], val])
+                    log_adduser_cmd.extend([adduser_opts[key], str(val)])
 
             elif key in adduser_flags and val:
                 adduser_cmd.append(adduser_flags[key])
